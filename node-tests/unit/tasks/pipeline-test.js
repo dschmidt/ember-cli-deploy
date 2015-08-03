@@ -397,11 +397,14 @@ describe('PipelineTask', function() {
       var task = new PipelineTask({
         project: project,
         ui: mockUi,
-        deployConfigPath: 'node-tests/fixtures/config/deploy-for-addons-config-test-with-alias.js',
+        deployConfigPath: 'node-tests/fixtures/config/deploy-for-addons-config-test-with-aliases.js',
       });
 
       // TODO: How do i do this correctly?
       // expect(task.setup()).should.be.rejectedWith('Configured alias `bar-alias` for plugin `foo-plugin`, which is not available.');
+      return task.setup().then(null, function(err) {
+        assert.equal(Object.keys(err.unavailablePlugins).length, 3);
+      });
     });
   });
 });
