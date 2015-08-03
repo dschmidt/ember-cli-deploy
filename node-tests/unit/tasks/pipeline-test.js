@@ -386,5 +386,22 @@ describe('PipelineTask', function() {
         expect(correctAliasUsed['doo-alias']).to.be.true;
       });
     });
+
+    it('throws error on non-existent plugin in whitelist', function () {
+      var correctAliasUsed = false;
+      var project = {
+        name: function() {return 'test-project';},
+        root: process.cwd()
+      };
+
+      var task = new PipelineTask({
+        project: project,
+        ui: mockUi,
+        deployConfigPath: 'node-tests/fixtures/config/deploy-for-addons-config-test-with-alias.js',
+      });
+
+      // TODO: How do i do this correctly?
+      // expect(task.setup()).should.be.rejectedWith('Configured alias `bar-alias` for plugin `foo-plugin`, which is not available.');
+    });
   });
 });
